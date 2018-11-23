@@ -62,10 +62,21 @@ function showGifs() {
             // Creating a div to hold the gif
             var gifsDiv = $("<div class='gifs'>");
 
-            // Retrieving the URL for the image
-            var imgUrl = results[i].images.fixed_width_still.url;
-            // Creating an element to hold the image
-            var image = $("<img>").attr("src", imgUrl);
+            // // Retrieving the URL for the image
+            // var imgUrl = results[i].images.fixed_width_still.url;
+            // // Creating an element to hold the image
+            // var image = $("<img>").attr("src", imgUrl);
+
+                        // Retrieving the URL for the image
+                        var imgUrl = results[i].images;
+                        // Creating an element to hold the image
+                        var image = $("<img>").attr({
+                            src: imgUrl.fixed_width_still.url,
+                            "data-still": imgUrl.fixed_width_still.url,
+                            "data-animate": imgUrl.fixed_width.url,
+                            "data-state": "still"
+                        });
+
             // Appending the image
             gifsDiv.append(image);
 
