@@ -12,6 +12,8 @@ var topics = [
     "polygonal rotation"
 ]
 
+///// MAKE BUTTONS ////////////////////
+
 function makeBtns() {
     $("#buttons").empty();
 
@@ -31,22 +33,32 @@ function makeBtns() {
     }
 }
 
+///// PULL GIF DATA ////////////////////
+
+function pullGifs() {
+    
+    var apiKey = "h51PzGApg6VvLZRHlprU2fQoB2C7qfk7";
+
+    var gifTerm = $(this).attr("data-name");
+
+    var queryUrl = $.get("http://api.giphy.com/v1/gifs/search?q=" + gifTerm + "&api_key=" + apiKey + "&limit=10");
+
+    queryUrl.done(function (data) {
+        console.log("success got data", data);
+    });
+};
+
+
+///// EVENT LISTENER FOR BUTTON CLICK ////
+
+
+///// CALLING FUNCTIONS //////////////////
+
 makeBtns();
 
-// function to search the giphy api
+pullGifs();
 
-// // function pullGifs() {
-//     var apiKey = "h51PzGApg6VvLZRHlprU2fQoB2C7qfk7";
-//     var queryUrl = $.get("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=" + apiKey + "&limit=5");
-// // }
-
-// queryUrl.done(function(data) {
-//     console.log("success got data", data);
-// });
-
-// // // // create a loop to make buttons based on the topics listed in the array; .append for each string
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 // // // giphy api: q, limit, rating
 // // // giphy query url: make sure https
