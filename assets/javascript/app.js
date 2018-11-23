@@ -71,7 +71,7 @@ function showGifs() {
             gifsDiv.append(showRating);
 
             // Retrieving the URL for the image
-            var imgUrl = results[i].url;
+            var imgUrl = results[i].images.fixed_height.url;
             // Creating an element to hold the image
             var image = $("<img>").attr("src", imgUrl);
             // Appending the image
