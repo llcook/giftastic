@@ -35,28 +35,65 @@ function makeBtns() {
 
 ///// PULL GIF DATA ////////////////////
 
-function pullGifs() {
-    
+function showGifs() {
+
+    $("#gifSection").empty();
+
     var apiKey = "h51PzGApg6VvLZRHlprU2fQoB2C7qfk7";
 
     var gifTerm = $(this).attr("data-name");
 
-    var queryUrl = $.get("http://api.giphy.com/v1/gifs/search?q=" + gifTerm + "&api_key=" + apiKey + "&limit=10");
+    var queryUrl = ("http://api.giphy.com/v1/gifs/search?q=" + gifTerm + "&api_key=" + apiKey + "&limit=10");
 
-    queryUrl.done(function (data) {
-        console.log("success got data", data);
+    $.ajax({
+        url: queryUrl,
+        method: "GET"
+    }).then(function (response) {
+
+        console.log("success got data", response);
+
+        // store the results
+        var results = response.data;
+        // loop through each item in the results
+
+        for (var i = 0; i < results.length; i++) {
+
+            // Creating a div to hold the gif
+            var gifsDiv = $("<div class='gifs'>");
+
+            // Storing the rating data
+            var rating = results[i].rating;
+            console.log(rating);
+
+            // Creating an element to have the rating displayed
+            var showRating = $("<p>").text("Rating: " + rating);
+            // Displaying the rating
+            gifsDiv.append(showRating);
+
+            // Retrieving the URL for the image
+            var imgUrl = results[i].url;
+            // Creating an element to hold the image
+            var image = $("<img>").attr("src", imgUrl);
+            // Appending the image
+            gifsDiv.append(image);
+
+            // Putting the gifs on the page;
+            $("#gifSection").append(gifsDiv);
+        }
+
     });
-};
 
+}
 
 ///// EVENT LISTENER FOR BUTTON CLICK ////
+$("#buttons").on("click", ".gifBtn", showGifs);
 
 
 ///// CALLING FUNCTIONS //////////////////
 
 makeBtns();
 
-pullGifs();
+showGifs();
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
