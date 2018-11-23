@@ -62,20 +62,17 @@ function showGifs() {
             // Creating a div to hold the gif
             var gifsDiv = $("<div class='gifs'>");
 
-            // // Retrieving the URL for the image
-            // var imgUrl = results[i].images.fixed_width_still.url;
-            // // Creating an element to hold the image
-            // var image = $("<img>").attr("src", imgUrl);
+            // Retrieving the URL for the image
+            var imgUrl = results[i].images;
 
-                        // Retrieving the URL for the image
-                        var imgUrl = results[i].images;
-                        // Creating an element to hold the image
-                        var image = $("<img>").attr({
-                            src: imgUrl.fixed_width_still.url,
-                            "data-still": imgUrl.fixed_width_still.url,
-                            "data-animate": imgUrl.fixed_width.url,
-                            "data-state": "still"
-                        });
+            // Creating an element to hold the image
+            // as well as attributes/data for animate/still images
+            var image = $("<img>").attr({
+                src: imgUrl.fixed_width_still.url,
+                "data-still": imgUrl.fixed_width_still.url,
+                "data-animate": imgUrl.fixed_width.url,
+                "data-state": "still"
+            });
 
             // Appending the image
             gifsDiv.append(image);
@@ -96,19 +93,49 @@ function showGifs() {
 
 }
 
-///// EVENT LISTENERS FOR BUTTON CLICK ////
+
+///// EVENT LISTENERS /////////////
+
 $("#buttons").on("click", ".gifBtn", showGifs);
 
-$(".gifs").on("click", function() {
-    var state = $(this).attr("data-state");
-    
-})
 
 // // When the user clicks one of the still GIPHY images,
 // // the gif should animate
 // // If the user clicks the gif again
 // // it should stop playing.
 
+// $(".gifs").on("click", function () {
+
+//     // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+//     console.log(this);
+    
+//     // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+//     // Then, set the image's data-state to animate
+//     // Else set src to the data-still value
+    
+//     // if (state === "still") {
+//     //   $(this).attr("src", $(this).attr("data-animate"));
+//     //   $(this).attr("data-state", "animate");
+//     // } else {
+//     //   $(this).attr("src", $(this).attr("data-still"));
+//     //   $(this).attr("data-state", "still");
+//     // }
+//   });
+
+
+// this creates a new button
+$("#gifSubmit").on("click", function(event) {
+    event.preventDefault();
+
+    // This line grabs the input from the textbox
+    var userTopic = $("#gifInput").val().trim();
+
+    // Adding topic from the textbox to our array
+    topics.push(userTopic);
+
+    // Calling renderButtons which handles the processing of our topics array
+    makeBtns();
+  });
 
 ///// CALLING FUNCTIONS //////////////////
 
@@ -120,9 +147,9 @@ makeBtns();
 
 
 
-// //Add a form to your page
-// // takes the value from a user input box
-// // and adds it into your `topics` array
+// Add a form to your page
+// takes the value from a user input box
+// and adds it into your `topics` array
 
 // //Then make a function call that takes each topic in the array
 // //remakes the buttons on the page.
