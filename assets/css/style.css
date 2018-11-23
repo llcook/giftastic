@@ -5,5 +5,59 @@
 }
 
 body {
+    background-color: black;
+    /* background-image: url("https://i.giphy.com/media/tEMg2OuH4Az0Q/giphy.webp"); */
+}
 
+.gifBtn {
+    /* background-image: url("https://i.giphy.com/media/tEMg2OuH4Az0Q/giphy.webp"); */
+    background-color: black;
+    border: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin: 20px;
+    padding: 10px;
+}
+
+#gifSection {
+    float: left;
+    margin: 20px;
+    width: 60%;
+}
+
+.gifs {
+    display: inline-block;
+}
+
+.rating {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin: 5px;
+    padding: 5px;
+}
+
+#gifForm {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 20px;
+    width: 40%;
+}
+
+#gifInput,
+#gifSubmit {
+    margin-top: 5px;
+}
+
+#gifSubmit {
+    background: white;
+    border: none;
+    margin-left: 5px;
 }

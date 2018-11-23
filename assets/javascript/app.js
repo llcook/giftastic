@@ -2,13 +2,13 @@
 
 var topics = [
     "creative coding",
-    "perfect loop",
+    // "perfect loop",
     "opart",
-    "reflection",
+    "vaporwave",
     "colors",
     "pi slices",
     "abstract",
-    "dripping",
+    "trippy",
     "polygonal rotation"
 ]
 
@@ -43,14 +43,13 @@ function showGifs() {
 
     var gifTerm = $(this).attr("data-name");
 
-    var queryUrl = ("http://api.giphy.com/v1/gifs/search?q=" + gifTerm + "&api_key=" + apiKey + "&limit=10");
+    // giphy query url: make sure https
+    var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifTerm + "&api_key=" + apiKey + "&limit=10");
 
     $.ajax({
         url: queryUrl,
         method: "GET"
     }).then(function (response) {
-
-        console.log("success got data", response);
 
         // store the results
         var results = response.data;
@@ -58,20 +57,13 @@ function showGifs() {
 
         for (var i = 0; i < results.length; i++) {
 
+            console.log("DATA: ", response);
+
             // Creating a div to hold the gif
             var gifsDiv = $("<div class='gifs'>");
 
-            // Storing the rating data
-            var rating = results[i].rating;
-            console.log(rating);
-
-            // Creating an element to have the rating displayed
-            var showRating = $("<p>").text("Rating: " + rating);
-            // Displaying the rating
-            gifsDiv.append(showRating);
-
             // Retrieving the URL for the image
-            var imgUrl = results[i].images.fixed_height.url;
+            var imgUrl = results[i].images.fixed_width_still.url;
             // Creating an element to hold the image
             var image = $("<img>").attr("src", imgUrl);
             // Appending the image
@@ -79,37 +71,43 @@ function showGifs() {
 
             // Putting the gifs on the page;
             $("#gifSection").append(gifsDiv);
+
+            // Storing the rating data
+            var rating = results[i].rating;
+
+            // Creating an element to have the rating displayed
+            var showRating = $("<p class='rating'>").text("Rating: " + rating);
+            // Displaying the rating
+            gifsDiv.append(showRating);
         }
 
     });
 
 }
 
-///// EVENT LISTENER FOR BUTTON CLICK ////
+///// EVENT LISTENERS FOR BUTTON CLICK ////
 $("#buttons").on("click", ".gifBtn", showGifs);
 
-
-///// CALLING FUNCTIONS //////////////////
-
-makeBtns();
-
-showGifs();
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-// // // giphy api: q, limit, rating
-// // // giphy query url: make sure https
-
-// // When the user clicks on a button
-// // the page should grab 10 static, non-animated gif images from the GIPHY API
-// // and place them on the page.
+$(".gifs").on("click", function() {
+    var state = $(this).attr("data-state");
+    
+})
 
 // // When the user clicks one of the still GIPHY images,
 // // the gif should animate
 // // If the user clicks the gif again
 // // it should stop playing.
 
-// // Under every gif, display its rating (PG, G, so on).
+
+///// CALLING FUNCTIONS //////////////////
+
+makeBtns();
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// giphy api: q, limit, rating
+
+
 
 // //Add a form to your page
 // // takes the value from a user input box
