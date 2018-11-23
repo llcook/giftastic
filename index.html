@@ -1,16 +1,39 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>picture wall</title>
-        <meta charset="UTF-8"/>
-        <link rel="stylesheet" href="assets/css/style.css">
-    </head>
 
-    <body>
+<head>
+    <title>picture wall</title>
+    <meta charset="UTF-8" />
 
-        <!-- fill a div or other element dynamically -->
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
 
-        <script type="text/javascript" src="assets/javascript/app.js"></script>
-    
-    </body>
+    <!--jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- where the buttons will appear -->
+    <div id="buttons"></div>
+
+    <!-- where the user adds topics to the array -->
+    <form id="gifForm">
+        <label for="gifSubmit">See what else is out there.</label>
+        <input type="text" id="gifInput" />
+        <br />
+
+        <!-- button triggers new gif to be added -->
+        <input id="gifSubmit" type="submit" value="Add button" />
+    </form>
+
+    <!-- where the 10 generated gifs will appear -->
+    <div id="gifSection"></div>
+
+    <!-- javascript reference -->
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+
+</body>
+
 </html>
