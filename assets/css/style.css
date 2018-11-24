@@ -6,11 +6,9 @@
 
 body {
     background-color: black;
-    /* background-image: url("https://i.giphy.com/media/tEMg2OuH4Az0Q/giphy.webp"); */
 }
 
 .gifBtn {
-    /* background-image: url("https://i.giphy.com/media/tEMg2OuH4Az0Q/giphy.webp"); */
     background-color: black;
     border: none;
     color: white;
@@ -21,23 +19,37 @@ body {
     padding: 10px;
 }
 
+body,
+.gifBtn {
+    background-image: url("https://i.giphy.com/media/tEMg2OuH4Az0Q/giphy.webp");
+}
+
 #gifSection {
     float: left;
+    height: auto;
     margin: 20px;
-    width: 60%;
+    width: 70%;
 }
 
-.gifs {
+.gifContainer {
     display: inline-block;
+    position: relative;
 }
 
+.info {
+    background-color: rgb(83, 83, 88), opacity(0.5);
+    color: white;
+
+    padding: 10px;
+    position: absolute;
+    top: 0;
+}
+
+.title,
 .rating {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    letter-spacing: 3px;
-    margin: 5px;
-    padding: 5px;
+    font-size: 10px; 
 }
 
 #gifForm {
@@ -61,3 +73,8 @@ body {
     border: none;
     margin-left: 5px;
 }
+
+.gif {
+
+}
+

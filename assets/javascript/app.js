@@ -1,4 +1,6 @@
-// // // create an array of strings based on a topic of choice (var topics)
+$(document).ready(function () {
+
+///// ARRAY /////////////////////////////
 
 var topics = [
     "creative coding",
@@ -8,13 +10,16 @@ var topics = [
     "colors",
     "pi slices",
     "abstract",
-    "trippy",
-    "polygonal rotation"
+    "psychedelic",
+    "polygonal rotation",
 ]
 
 ///// MAKE BUTTONS ////////////////////
 
 function makeBtns() {
+
+    $("#gifInput").val("");
+
     $("#buttons").empty();
 
     // Looping through the array
@@ -33,7 +38,7 @@ function makeBtns() {
     }
 }
 
-///// PULL GIF DATA ////////////////////
+///// PULL GIFS ///////////////////////
 
 function showGifs() {
 
@@ -44,87 +49,85 @@ function showGifs() {
     var gifTerm = $(this).attr("data-name");
 
     // giphy query url: make sure https
-    var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifTerm + "&api_key=" + apiKey + "&limit=10");
+    var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifTerm + "&api_key=" + apiKey + "&limit=18");
 
     $.ajax({
         url: queryUrl,
         method: "GET"
     }).then(function (response) {
 
-        // store the results
+        // store results
         var results = response.data;
-        // loop through each item in the results
+        console.log(results);
 
+        // loop through each item in results
         for (var i = 0; i < results.length; i++) {
 
-            console.log("DATA: ", response);
+            // create div to hold gif
+            var gifsDiv = $("<div class='gifContainer'>");
 
-            // Creating a div to hold the gif
-            var gifsDiv = $("<div class='gifs'>");
+            // SHOW IMAGES
 
-            // Retrieving the URL for the image
+            // retrieve image url
             var imgUrl = results[i].images;
 
-            // Creating an element to hold the image
-            // as well as attributes/data for animate/still images
-            var image = $("<img>").attr({
-                src: imgUrl.fixed_width_still.url,
-                "data-still": imgUrl.fixed_width_still.url,
-                "data-animate": imgUrl.fixed_width.url,
-                "data-state": "still"
+            // create image element
+            // and attributes/data for animate/still images
+            var image = $("<img>").addClass("gif").attr({
+                // src: imgUrl.fixed_width_still.url,
+                src: imgUrl.original_still.url,
+                "data-still": imgUrl.original_still.url,
+                "data-animate": imgUrl.original.url,
+                "data-state": "still",
+                "width": 400
             });
 
-            // Appending the image
+            // append image to page
             gifsDiv.append(image);
 
-            // Putting the gifs on the page;
+            // put gifs on page;
             $("#gifSection").append(gifsDiv);
 
-            // Storing the rating data
+            // SHOW INFO
+
+            var title = results[i].title;
             var rating = results[i].rating;
 
-            // Creating an element to have the rating displayed
-            var showRating = $("<p class='rating'>").text("Rating: " + rating);
-            // Displaying the rating
-            gifsDiv.append(showRating);
+            var showInfo = $("<div class='info'>").html
+                ("<p class='title'>" + title + "</p><p class='rating'>rating: " + rating);
+
+            gifsDiv.append(showInfo);
         }
+
+
+        // START/STOP ANIMATION
+
+        // gifs are set to be still by default
+        // this function allows user to turn animation on/off with a click
+        $(".gif").on("click", function () {
+            
+            var state = $(this).attr("data-state");
+
+            if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+              } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+            }
+        });
 
     });
 
 }
 
-
 ///// EVENT LISTENERS /////////////
 
+// activates gifBtn functionality
 $("#buttons").on("click", ".gifBtn", showGifs);
 
-
-// // When the user clicks one of the still GIPHY images,
-// // the gif should animate
-// // If the user clicks the gif again
-// // it should stop playing.
-
-// $(".gifs").on("click", function () {
-
-//     // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-//     console.log(this);
-    
-//     // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-//     // Then, set the image's data-state to animate
-//     // Else set src to the data-still value
-    
-//     // if (state === "still") {
-//     //   $(this).attr("src", $(this).attr("data-animate"));
-//     //   $(this).attr("data-state", "animate");
-//     // } else {
-//     //   $(this).attr("src", $(this).attr("data-still"));
-//     //   $(this).attr("data-state", "still");
-//     // }
-//   });
-
-
-// this creates a new button
-$("#gifSubmit").on("click", function(event) {
+// function to add a button
+$("#gifSubmit").on("click", function (event) {
     event.preventDefault();
 
     // This line grabs the input from the textbox
@@ -135,24 +138,11 @@ $("#gifSubmit").on("click", function(event) {
 
     // Calling renderButtons which handles the processing of our topics array
     makeBtns();
-  });
+});
 
 ///// CALLING FUNCTIONS //////////////////
 
 makeBtns();
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-// giphy api: q, limit, rating
-
-
-
-// Add a form to your page
-// takes the value from a user input box
-// and adds it into your `topics` array
-
-// //Then make a function call that takes each topic in the array
-// //remakes the buttons on the page.
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -172,3 +162,8 @@ makeBtns();
 // 6. Allow users to add their favorite gifs to a `favorites` section.
 //    * This should persist even when they select or add a new topic.
 //    * If you are looking for a major challenge, look into making this section persist even when the page is reloaded(via localStorage or cookies).
+
+
+///// END ////////////////////////////
+
+});
