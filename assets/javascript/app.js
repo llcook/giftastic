@@ -10,6 +10,7 @@ $(document).ready(function () {
         "colors",
         "pi slices",
         "abstract",
+        "geometry",
         "psychedelic",
         "polygonal rotation",
     ]
@@ -49,7 +50,7 @@ $(document).ready(function () {
         var gifTerm = $(this).attr("data-name");
 
         // giphy query url: make sure https
-        var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifTerm + "&api_key=" + apiKey + "&limit=18");
+        var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifTerm + "&api_key=" + apiKey + "&limit=9");
 
         $.ajax({
             url: queryUrl,
@@ -64,7 +65,7 @@ $(document).ready(function () {
             for (var i = 0; i < results.length; i++) {
 
                 // create div to hold gif
-                var gifsDiv = $("<div class='gifContainer'>");
+                var gifsDiv = $("<div class='gifContainer clearfix'>");
 
                 // SHOW IMAGES
 
@@ -93,15 +94,16 @@ $(document).ready(function () {
 
                 var title = results[i].title;
                 var rating = results[i].rating;
+                var link = imgUrl.original.url;
 
                 var pullInfo = $("<div class='info'>").html
-                    ("<p class='title'>" + title + "</p><p class='rating'>rating: " + rating).hide();
+                    ("<p class='title'>" + title + "</p><p class='rating'>rating: " + rating + "</p><p><a href='" + link + "' download><button id='download'>&darr;</button></a>").hide();
 
                 gifsDiv.append(pullInfo);
-                $(".info").hide();
 
                 // SHOW/HIDE INFO
 
+                $(".info").hide();
                 $(".gifContainer").on("mouseenter", function () {
                     $(this).find(".info").show();
                 }).on("mouseleave", function () {
