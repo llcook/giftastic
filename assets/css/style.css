@@ -9,12 +9,20 @@ body {
     min-height: 100vh;
 }
 
+header {
+    height: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
 .gifBtn {
     background-color: black;
     border: none;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 10px;
+    font-size: 14px;
     letter-spacing: 3px;
     margin: 20px;
     padding: 10px;
@@ -22,18 +30,20 @@ body {
 
 .gifBtn {
     background-image: url("https://i.giphy.com/media/tEMg2OuH4Az0Q/giphy.webp");
+    background-color: darkmagenta;
 }
 
 #gifSection {
     float: left;
     height: auto;
     margin: 20px;
-    width: 65%;
+    width: 90%;
 }
 
 .gifContainer {
     display: inline-block;
     position: relative;
+    z-index: 1;
 }
 
 .info {
@@ -45,6 +55,14 @@ body {
 }
 
 #download {
+    color: lime;
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+#favorite {
+    color:coral;
+    font-size: 24px;
     margin-top: 5px;
 }
 
@@ -63,18 +81,49 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 32px;
     font-style: italic;
-    margin: 20px 40px 0 0;
-    position: relative;
+    height: 30px;
+    margin: 26px 50px 0 0;
+    position: fixed;
     right: 0;
-    top: 0;
+    top: 40;
     width: auto;
+    z-index: 10000;
+
+    /* trying to show/hide */
+    display: none;
 }
 
-/* FIX #GIFFORM TO THE TOP RIGHT OF THE PAGE */
-/* MAKE IT HIDDEN  */
-/* MAKE A BUTTON (+) THAT HIDES ITSELF WHEN CLICKED AND SHOWS THE FORM IN ITS PLACE */
-/* THE FORM RETURNS TO HIDDEN AFTER THE USER INPUT IS SUBMITTED */
-/* AND THE BUTTON RE-APPEARS */
+#formButton {
+    background-color: none;
+    color: white;
+    font-size: 40px;
+    margin: 20px 20px 0 0;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    top: 40;
+}
+
+#favsWindow {
+    background-color: none;
+    color: white;
+    font-size: 40px;
+    margin: 80px 15px 0 0;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    top: 40;
+}
+
+button {
+    background: none;
+    border: none;
+}
+
+button:focus,
+button:active {
+    outline: none;
+}
 
 #gifInput,
 #gifSubmit {
@@ -84,13 +133,12 @@ body {
 #gifInput {
     font-size: 16px;
     padding: 4px;
-    width: 80%;
 }
 
 #gifSubmit {
     background: white;
     border: none;
-    margin-left: 5px;
-    padding: 9px;
+    margin: 0 10px 0 5px;
+    padding: 8px;
 }
 

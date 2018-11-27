@@ -8,12 +8,15 @@ $(document).ready(function () {
         "opart",
         "vaporwave",
         "colors",
-        "pi slices",
+        // "pi slices",
+        "trippy",
         "abstract",
         "geometry",
         "psychedelic",
         "polygonal rotation",
     ]
+
+    var favorites = [];
 
     ///// MAKE BUTTONS ////////////////////
 
@@ -75,14 +78,16 @@ $(document).ready(function () {
                 // create image element
                 // and attributes/data for animate/still images
                 var image = $("<img>").addClass("gif").attr({
-                    // src: imgUrl.fixed_width_still.url,
                     src: imgUrl.original_still.url,
                     "data-still": imgUrl.original_still.url,
                     "data-animate": imgUrl.original.url,
                     "data-state": "still",
-                    "width": 400,
+                    "height": 400,
                     "data-index": [i]
                 });
+
+                // create button to request more gifs
+                // var loadMore = $("<button>").attr("id", "loadMore");
 
                 // append image to page
                 gifsDiv.append(image);
@@ -97,20 +102,43 @@ $(document).ready(function () {
                 var link = imgUrl.original.url;
 
                 var pullInfo = $("<div class='info'>").html
-                    ("<p class='title'>" + title + "</p><p class='rating'>rating: " + rating + "</p><p><a href='" + link + "' download><button id='download'>&darr;</button></a>").hide();
+                    ("<p class='title'>" + title + "</p><p class='rating'>rating: " + rating + "</p><p><button id='favorite'>&hearts;</button><a href='" + link + "' download><button id='download'>&darr;</button></a></p>").hide();
 
                 gifsDiv.append(pullInfo);
 
                 // SHOW/HIDE INFO
 
                 $(".info").hide();
+
                 $(".gifContainer").on("mouseenter", function () {
                     $(this).find(".info").show();
                 }).on("mouseleave", function () {
                     $(this).find(".info").hide();
-                });
+                }).on("click", "#favorite", function () {
+                    var fav = $(this);
+                    console.log(fav);
+                })
+
+                // var fav = $(this).find(".gif").attr("data-still");
+                
+
+                    // $("#favorite").on("click", function () {
+                    //     console.log(favorite);
+                    // });
+
+                // // ADD GIF TO FAVORITES
+                // $("#favorite").on("click", function () {
+                //     var favorite = $(this).find("#gif").attr("data-still");
+                //     console.log(favorite);
+                // })
 
             }
+
+            // create loadMore button
+            // add to queryUrl ----> offset = 10; need global var for offset
+            // set that global var to 10 every time you click on one of your buttons
+            // every tim eu click on the button, add 10 to that, so if you click again you get the next 10
+            
 
             // START/STOP ANIMATION
 
@@ -136,6 +164,11 @@ $(document).ready(function () {
 
     ///// EVENT LISTENERS /////////////
 
+    // SHOW/HIDE FORM
+    $("#formButton").click(function(){
+        $("#gifForm").animate({width: 'toggle'}); 
+    });
+
     // activates gifBtn functionality
     $("#buttons").on("click", ".gifBtn", showGifs);
 
@@ -151,6 +184,9 @@ $(document).ready(function () {
 
         // Calling renderButtons which handles the processing of our topics array
         makeBtns();
+
+        $("#gifForm").hide();
+
     });
 
     ///// CALLING FUNCTIONS //////////////////
